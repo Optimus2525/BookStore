@@ -33,7 +33,7 @@ public class MySQLBookController {
         return appName;
     }
 
-    // GET - all
+    // GET - all books from DB
     @GetMapping
     public List<Book> getAll() {
         return mySQLBookService.getAllBooks();
@@ -45,9 +45,17 @@ public class MySQLBookController {
         return "There are " + mySQLBookService.countBooks() + " books in database.";
     }
 
+    // POST - register new book in DB
     @PostMapping
     public void registerNewBook(@RequestBody Book book) {
         mySQLBookService.addNewBook(book);
+    }
+
+    // DELETE - Delete book by ID
+    @DeleteMapping("/{id}")
+    public void deleteBookById(@PathVariable("id") Long id) {
+        mySQLBookService.removeBookById(id);
+        System.out.printf("Book with an ID %s successfully removed \n", id);
     }
 
 

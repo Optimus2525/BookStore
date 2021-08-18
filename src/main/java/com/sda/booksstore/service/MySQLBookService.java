@@ -3,8 +3,6 @@ package com.sda.booksstore.service;
 import com.sda.booksstore.model.Book;
 import com.sda.booksstore.repository.MySQLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +37,13 @@ public class MySQLBookService {
     public void addNewBook(Book book) {
         Optional<Book> bookOptional = mySQLRepository.findBookByBookISBN(book.getBookISBN());
         if (bookOptional.isPresent()) {
-            throw new IllegalStateException("ISBN is in use");
+            throw new IllegalStateException("There is already registered a book in DB with this ISBN code");
         }
         mySQLRepository.save(book);
+    }
+
+    // This is deleting book by ID
+    public void removeBookById(Long id) {
+        mySQLRepository.deleteById(id);
     }
 }

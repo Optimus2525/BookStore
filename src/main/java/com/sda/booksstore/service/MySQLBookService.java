@@ -21,10 +21,14 @@ public class MySQLBookService {
         this.mySQLRepository = mySQLRepository;
     }
 
-    // This is fetching all data from DB using JpaRepository
-    // class into list
+    // This is fetching all data from DB into list using JpaRepository class
+    // Get all Books from DB
     public List<Book> getAllBooks() {
         return mySQLRepository.findAll();
+    }
+
+    public Long countBooks() {
+        return mySQLRepository.count();
     }
 
 }

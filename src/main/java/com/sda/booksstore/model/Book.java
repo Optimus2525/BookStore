@@ -46,4 +46,15 @@ public class Book {
     @NotBlank(message = "Pages quantity is required")
     private String bookPages;
 
+    public Book(String bookName,
+                String bookAuthor,
+                Integer bookISBN,
+                String bookDescription,
+                String bookPages) {
+        this.bookName = bookName;
+        this.bookAuthor = bookAuthor;
+        this.bookISBN = bookISBN;
+        this.bookDescription = bookDescription;
+        this.bookPages = bookPages;
+    }
 }

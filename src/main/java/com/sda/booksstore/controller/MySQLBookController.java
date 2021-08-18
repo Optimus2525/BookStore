@@ -40,4 +40,15 @@ public class MySQLBookController {
         return mySQLBookService.getAllBooks();
     }
 
+    // GET - Count all Books
+    @GetMapping("/count")
+    public String countAll() {
+        return new StringBuilder()
+                .append("There are ")
+                .append(mySQLBookService.countBooks())
+                .append(" books in database.").toString();
+    }
+
+
+
 }

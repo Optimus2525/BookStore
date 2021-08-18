@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Profile("MySQL")
 @Service
@@ -27,44 +28,19 @@ public class MySQLBookService {
         return mySQLRepository.findAll();
     }
 
+    // This is counting (records) books in DB
     public Long countBooks() {
         return mySQLRepository.count();
     }
 
-    // This is adding books into database
-    @Bean
-    CommandLineRunner commandLineRunner(MySQLRepository mySQLRepository) {
-        return args -> {
-
-            Book book1 = new Book(
-
-                    "Aizraujošā programmēšana",
-                    "Janis Siliņš",
-                    555555,
-                    "Reāli laba grāmata",
-                    "468");
-
-            Book book2 = new Book(
-
-                    "Java Hibernate Cookbook",
-                    "Vishal Ranapariya",
-                    666666,
-                    "Learn to associate JDBC and Hibernate with object persistence.",
-                    "468");
-
-            Book book3 = new Book(
-
-                    "Hibernate Search in Action",
-                    "Emmanuel Bernard",
-                    777777,
-                    "Hibernate Search in Action is a practical, example-oriented guide " +
-                            "for Java developers with some background in Hibernate Core.",
-                    "711");
-
-            mySQLRepository.saveAll(List.of(book1, book2, book3));
-        };
+    // This is checking if there is a book with new ISBN code present in DB
+    // If ISBN is present, an exception is thrown
+    // If ISBN is not present, now record is added to DB
+    public void addNewBook(Book book) {
+        Optional<Book> bookOptional = mySQLRepository.findBookByBookISBN(book.getBookISBN());
+        if (bookOptional.isPresent()) {
+            throw new IllegalStateException("ISBN is in use");
+        }
+        mySQLRepository.save(book);
     }
-
-
-
 }

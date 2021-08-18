@@ -54,12 +54,14 @@ public class MySQLBookService {
         mySQLRepository.deleteById(id);
     }
 
-    // This is updating bookName and/or bookDescription
+    // This is updating bookName and/or bookISBN
+    // If there already is a record with new bookISBN code
+    // an exception is thrown
     @Transactional
     public void updateBookById(
             Long id,
             String bookName,
-            String bookDescription) {
+            Integer bookISBN) {
         Book book = mySQLRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException(
                         "Book with ID: " + id + " does not exist in DB"
@@ -71,14 +73,15 @@ public class MySQLBookService {
             book.setBookName(bookName);
         }
 
-        if (bookDescription != null
-                && bookDescription.length() > 0
-                && !Objects.deepEquals(book.getBookDescription(), bookDescription)) {
-             book.setBookDescription(bookDescription);
+        if (bookISBN != null) {
+            Optional<Book> bookOptional = mySQLRepository.findBookByBookISBN(bookISBN);
+            if (bookOptional.isPresent()) {
+                throw new IllegalStateException(
+                        "A book with ISBN code: "
+                                + bookISBN + " is already existing in DB");
+            }
+            book.setBookISBN(bookISBN);
         }
-
-
-
-
     }
+
 }

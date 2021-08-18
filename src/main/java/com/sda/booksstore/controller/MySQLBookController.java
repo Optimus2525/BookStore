@@ -57,11 +57,11 @@ public class MySQLBookController {
         System.out.printf("Book with an ID %s successfully removed \n", id);
     }
 
-    // PUT - Update book - bookName or/and bookDescription
+    // PUT - Update book - bookName or/and bookISBN
     @PutMapping("/{id}")
     public void updateBook(@PathVariable("id") Long id,
                            @RequestParam(required = false) String bookName,
-                           @RequestParam(required = false) String bookDescription) {
-        mySQLBookService.updateBookById(id, bookName, bookDescription);
+                           @RequestParam(required = false) Integer bookISBN) {
+        mySQLBookService.updateBookById(id, bookName, bookISBN);
     }
 }

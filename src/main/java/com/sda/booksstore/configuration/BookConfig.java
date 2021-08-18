@@ -6,10 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+
 import java.util.List;
 
 @Profile("MySQL")
 
+//@Component
 @Configuration
 public class BookConfig {
 
@@ -18,6 +20,7 @@ public class BookConfig {
         return args -> {
 
             Book book1 = new Book(
+                    8L,
                     "Aizraujošā programmēšana",
                     "Janis Siliņš",
                     258741,
@@ -25,6 +28,7 @@ public class BookConfig {
                     "468");
 
             Book book2 = new Book(
+                    9L,
                     "Java Hibernate Cookbook",
                     "Vishal Ranapariya",
                     465821,
@@ -32,6 +36,7 @@ public class BookConfig {
                     "468");
 
             Book book3 = new Book(
+                    10L,
                     "Hibernate Search in Action",
                     "Emmanuel Bernard",
                     852143,
@@ -39,9 +44,7 @@ public class BookConfig {
                             "for Java developers with some background in Hibernate Core.",
                     "711");
 
-            mySQLRepository.saveAll(List.of(
-                    book1, book2, book3)
-            );
+            mySQLRepository.saveAll(List.of(book1, book2, book3));
 
         };
     }

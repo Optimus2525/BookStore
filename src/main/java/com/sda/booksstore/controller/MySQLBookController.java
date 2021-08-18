@@ -4,7 +4,6 @@ import com.sda.booksstore.model.Book;
 import com.sda.booksstore.service.MySQLBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +57,11 @@ public class MySQLBookController {
         System.out.printf("Book with an ID %s successfully removed \n", id);
     }
 
-
-
+    // PUT - Update book - bookName or/and bookDescription
+    @PutMapping("/{id}")
+    public void updateBook(@PathVariable("id") Long id,
+                           @RequestParam(required = false) String bookName,
+                           @RequestParam(required = false) String bookDescription) {
+        mySQLBookService.updateBookById(id, bookName, bookDescription);
+    }
 }

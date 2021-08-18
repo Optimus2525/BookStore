@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Profile("MySQL")
@@ -44,6 +46,39 @@ public class MySQLBookService {
 
     // This is deleting book by ID
     public void removeBookById(Long id) {
+        boolean exists = mySQLRepository.existsById(id);
+        if (!exists) {
+            throw new IllegalStateException(
+                    "There is not a book with ID: " + id + " in DB");
+        }
         mySQLRepository.deleteById(id);
+    }
+
+    // This is updating bookName and/or bookDescription
+    @Transactional
+    public void updateBookById(
+            Long id,
+            String bookName,
+            String bookDescription) {
+        Book book = mySQLRepository.findById(id)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Book with ID: " + id + " does not exist in DB"
+                ));
+
+        if (bookName != null
+                && bookName.length() > 0
+                && !Objects.equals(book.getBookName(), bookName)) {
+            book.setBookName(bookName);
+        }
+
+        if (bookDescription != null
+                && bookDescription.length() > 0
+                && !Objects.deepEquals(book.getBookDescription(), bookDescription)) {
+             book.setBookDescription(bookDescription);
+        }
+
+
+
+
     }
 }

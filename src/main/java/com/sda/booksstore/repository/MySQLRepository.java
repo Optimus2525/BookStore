@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface MySQLRepository extends JpaRepository<Book, Long> {
+
     @Query("SELECT b FROM Book b WHERE b.bookISBN = ?1")
     Optional<Book> findBookByBookISBN(Integer bookISBN);
 }

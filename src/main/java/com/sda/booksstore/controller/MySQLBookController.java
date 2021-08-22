@@ -5,10 +5,10 @@ import com.sda.booksstore.service.MySQLBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @Profile("MySQL")
 
 @RestController
@@ -22,7 +22,7 @@ public class MySQLBookController {
         this.mySQLBookService = mySQLBookService;
     }
 
-
+    // This is just showing an application name
     @Value("${spring.application.name}")
     private String appName;
 
@@ -46,7 +46,7 @@ public class MySQLBookController {
 
     // POST - register new book in DB
     @PostMapping
-    public void registerNewBook(@RequestBody Book book) {
+    public void registerqNewBook(@RequestBody Book book) {
         mySQLBookService.addNewBook(book);
     }
 

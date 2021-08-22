@@ -1,6 +1,5 @@
 package com.sda.booksstore.service;
 
-import com.sda.booksstore.controller.ApplicationControllerAdvice;
 import com.sda.booksstore.model.Book;
 import com.sda.booksstore.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,7 @@ public class BookService {
 
     public Book saveBook(Book book) {
         var existingBook = repository.findByISBN(book.getBookISBN());
-        if(existingBook.isPresent()) {
+        if (existingBook.isPresent()) {
             System.out.printf("Book with ISBN %s is existing - cannot save", book.getBookISBN());
             throw new RuntimeException(String.format("Book with ISBN %s is existing - cannot save", book.getBookISBN()));
         }

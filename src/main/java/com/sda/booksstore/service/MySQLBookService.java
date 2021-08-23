@@ -44,6 +44,12 @@ public class MySQLBookService {
         mySQLRepository.save(book);
     }
 
+
+    public void saveBook(Book book) {
+        mySQLRepository.save(book);
+    }
+
+
     // This is deleting book by ID
     public void removeBookById(Long id) {
         boolean exists = mySQLRepository.existsById(id);
@@ -82,6 +88,18 @@ public class MySQLBookService {
             }
             book.setBookISBN(bookISBN);
         }
+    }
+
+
+    public Book getBookById(Long id) {
+        Optional<Book> optional = mySQLRepository.getBookById(id);
+        Book book = null;
+        if (optional.isPresent()) {
+            book = optional.get();
+        } else {
+            throw new IllegalStateException("Book with ID: " + id + " does not exist in DB");
+        }
+        return book;
     }
 
 }

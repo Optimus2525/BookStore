@@ -4,38 +4,52 @@
       integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
       crossorigin="anonymous">
 <meta charset="utf-8">
-
-<title>BookService - Books list</title>
+<title>BookStore</title>
 <head>
     <meta charset="UTF-8">
-    <title>Books list</title>
+    <title>Books List</title>
 </head>
 <body>
+<p>&nbsp;</p>
 
-<table class="table table-striped table-hover table-bordered">
-    <thead>
-    <tr>
-        <th scope="col">Book name</th>
-        <th scope="col">Book Author</th>
-        <th scope="col">ISBN number</th>
-        <th scope="col">Book description</th>
-        <th scope="col">Pages in book</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="book: ${allbooks}">
-        <td th:text="${book.getBookName()}"></td>
-        <td th:text="${book.getBookAuthor()}"></td>
-        <td th:text="${book.getBookISBN()}"></td>
-        <td th:text="${book.getBookDescription()}"></td>
-        <td th:text="${book.getBookPages()}"></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container my-2">
 
-<p>
-    <a href="http://localhost:8080">Go to Index file</a>
-</p>
+    <h2>BookStore books list</h2>
+
+    <p>
+        <a th:href="@{/}" class="btn btn-primary btn-smb-mb-3">Home</a>&nbsp;&nbsp;
+        <a th:href="@{/showNewBookForm}" class="btn btn-primary btn-smb-mb-3">Add new Book</a>&nbsp;&nbsp;&nbsp;
+        Database contains <b>XXX</b> books.
+    </p>
+
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Book name</th>
+            <th scope="col">Book Author</th>
+            <th scope="col">ISBN number</th>
+            <th scope="col">Book description</th>
+            <th scope="col">Pages in book</th>
+            <th style="width:180px;" scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book: ${all_books}">
+            <td th:text="${book.getId()}"></td>
+            <td th:text="${book.getBookName()}"></td>
+            <td th:text="${book.getBookAuthor()}"></td>
+            <td th:text="${book.getBookISBN()}"></td>
+            <td th:text="${book.getBookDescription()}"></td>
+            <td th:text="${book.getBookPages()}"></td>
+            <td style="width:180px;">
+                    <a th:href="@{/showFormForUpdate/{id}(id=${book.getId()})}" class="btn btn-primary">Update</a>&nbsp;
+                    <a th:href="@{/deleteBook/{id}(id=${book.getId()})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>

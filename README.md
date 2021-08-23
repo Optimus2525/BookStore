@@ -4,3 +4,4 @@
 file. If "default" profile is used, data is saved in HashMap collection. If "MySQL" 
 profile is used, data is stored in MySQL database.</p>
 <img src="https://github.com/Optimus2525/BookStore/blob/master/bookstore.png?raw=true" />
+<p>Added Thymeleaf (with Bootstrap) user interface providing CRUD functionality in browser window</p>
